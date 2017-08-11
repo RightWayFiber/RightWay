@@ -1,0 +1,13 @@
+<div>
+    <h1>Schedule Table</h1>
+</div>
+
+{% for job in jobs %}
+    <div>
+        <h1>{{ job.lineno }}</h1>
+        <h2>{{ job.lotno }}</h2>
+        <p>시작: {{ job.start }}</p>
+        <p>완료: {{ job.finish }}</p>        
+        <p>{{ job.text|linebreaksbr }}</p>
+    </div>
+{% endfor %}

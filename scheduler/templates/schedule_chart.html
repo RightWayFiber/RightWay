@@ -1,0 +1,30 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    google.charts.load("current", { "packages": ["timeline"], "language": "ko" });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var container = document.getElementById('example3.1');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({ type: 'string', id: 'Line#' });
+        dataTable.addColumn({ type: 'string', id: 'Lot#' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'Finish' });
+
+        var rows = []        
+        {% for job in jobs %}
+        rows.push([
+            '{{ job.lineno }}',
+            '{{ job.lotno }}' + ' / ' + '{{ job.color }}' + ' / ' + '{{ job.qty }}',
+            new Date({{ job.start.year }}, {{ job.start.month }}, {{ job.start.day }}, {{ job.start.hour }}),
+            new Date({{ job.finish.year }}, {{ job.finish.month }}, {{ job.finish.day }}, {{ job.finish.hour }})
+            ]);  
+        {% endfor %}
+        
+        dataTable.addRows(rows);
+        chart.draw(dataTable);
+    }
+</script>
+
+<div id="example3.1" style="height: 200px;"></div>

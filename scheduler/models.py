@@ -8,11 +8,10 @@ class Job(models.Model):
     lotno = models.CharField(max_length=32, default='')
     color = models.CharField(max_length=32, default='')
     qty = models.PositiveIntegerField(default=0)
-    start_date = models.DateTimeField(default=timezone.now)
-    finish_date = models.DateTimeField(default=timezone.now)
+    start = models.DateTimeField(default=timezone.now)
+    finish = models.DateTimeField(default=timezone.now)
 
-    def register(self):
-        self.registered_date = timezone.now()
+    def register(self):        
         self.save()
 
     def __str__(self):
