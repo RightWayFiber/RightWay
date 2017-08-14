@@ -1,5 +1,12 @@
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% extends 'scheduler/base.html' %}
 
+{% block navbar %}
+<li class="active"><a href="/chart">Chart<span class="sr-only">(current)</span></a></li>
+<li><a href="/table">Table</a></li>    
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
     google.charts.load("current", { "packages": ["timeline"], "language": "ko" });
     google.charts.setOnLoadCallback(drawChart);
@@ -26,5 +33,5 @@
         chart.draw(dataTable);
     }
 </script>
-
 <div id="example3.1" style="height: 200px;"></div>
+{% endblock %}

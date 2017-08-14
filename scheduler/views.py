@@ -4,11 +4,11 @@ from django.core import serializers
 from .models import Job
 
 
-def schedule_chart(request):
+def chart(request):
     jobs = Job.objects.order_by('start').order_by('lineno')    
-    return render(request, 'schedule_chart.html', {'jobs': jobs})
+    return render(request, 'scheduler/chart.html', {'jobs': jobs})
 
 
-def schedule_table(request):
+def table(request):
     jobs = Job.objects.order_by('start').order_by('lineno')    
-    return render(request, 'schedule_table.html', {'jobs': jobs})
+    return render(request, 'scheduler/table.html', {'jobs': jobs})

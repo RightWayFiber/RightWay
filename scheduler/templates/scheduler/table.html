@@ -1,0 +1,36 @@
+{% extends 'scheduler/base.html' %}
+
+{% block navbar %}
+<li><a href="/chart">Chart</a></li>
+<li class="active"><a href="/table">Table<span class="sr-only">(current)</span></a></li>    
+{% endblock %}
+
+{% block content %}
+<div class="bs-component">
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr class="success">
+                <th>Line#</th>
+                <th>Lot#</th>
+                <th>색상</th>
+                <th>수량</th>
+                <th>시작</th>
+                <th>완료</th>
+            </tr>
+        </thead>        
+        <tbody>
+            {% for job in jobs %}
+            <tr>
+                <td>{{ job.lineno }}</td>
+                <td>{{ job.lotno }}</td>
+                <td>{{ job.color }}</td>
+                <td>{{ job.qty }}</td>
+                <td>{{ job.start }}</td>
+                <td>{{ job.finish }}{{ job.text|linebreaksbr }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

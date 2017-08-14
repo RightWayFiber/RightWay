@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.schedule_chart, name='schedule_chart'),
-    url(r'^table/', views.schedule_table, name='schedule_table')
+    url(r'^$', views.chart, name='chart'),
+    url(r'^chart/', views.chart, name='chart'),
+    url(r'^table/', views.table, name='table')
 ]
