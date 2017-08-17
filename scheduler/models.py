@@ -6,7 +6,7 @@ class Job(models.Model):
     author = models.ForeignKey('auth.User')
     lineno = models.CharField(max_length=32, default='')
     lotno = models.CharField(max_length=32, default='')
-    color = models.CharField(max_length=32, default='')
+    colorname = models.CharField(max_length=32, default='')
     qty = models.PositiveIntegerField(default=0)
     start = models.DateTimeField(default=timezone.now)
     finish = models.DateTimeField(default=timezone.now)
