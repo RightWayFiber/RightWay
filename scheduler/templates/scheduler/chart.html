@@ -95,6 +95,164 @@
 <div id="lotnochartdiv" style="width: 100%; height: {{ chart_height }}px;"></div>
 {% endblock %}
 
+{% block chart_lotno_color %}
+<script>
+    var color_chart = AmCharts.makeChart("lotnocolorchartdiv", 
+        {
+            "type": "gantt",
+            "marginRight": 70,
+            "language": "ko",
+            "period": "hh",
+            "dataDateFormat": "YYYY-MM-DD-JJ",
+            "valueAxis": {
+                "type": "date"
+            },
+            "brightnessStep": 10,
+            "mouseWheelZoomEnabled": true,
+            "columnWidth": 0.7,
+            "graph": {
+                "fillAlphas": 0.7,
+                "lineAlpha": 0.7,
+                "lineColor": "#000000",
+                "dateFormat": "YYYY년 MM월 DD일 JJ시",
+                "labelText": "[[lotno]] | [[colorname]]",
+                "labelPosition": "middle",
+                "labelRotation": 20,
+                "showAllValueLabels": true,            
+                "balloonText": "<b>[[lotno]]</b><br/>색상: [[colorname]]<br/>수량: [[qty]]<br/>시작: [[open]]<br/>종료: [[value]]"
+            },
+            "balloon": {
+                "adjustBorderColor": true,
+                "cornerRadius": 5,
+                "textAlign": "left"
+            },
+            "rotate": true,
+            "categoryField": "category",
+            "segmentsField": "segments",
+            "colorField": "color",
+            "startDateField": "start",
+            "endDateField": "end",            
+            "dataProvider": [                
+                {% for item in chart_data %}
+                {
+                    "category": "{{ item.category }}",
+                    "segments": [
+                        {% for segment in item.segments %}
+                        {
+                            "lotno": "{{ segment.lotno }}",
+                            "color": "{{ segment.color }}",
+                            "colorname": "{{ segment.colorname }}",
+                            "qty": "{{ segment.qty }}",
+                            "start": "{{ segment.start }}",
+                            "end": "{{ segment.end }}"
+                        },
+                        {% endfor %}
+                    ]
+                },
+                {% endfor %}
+            ],
+            "chartCursor": {
+                "valueBalloonsEnabled": false,
+                "cursorAlpha": 0,
+                "valueLineBalloonEnabled": true,
+                "valueLineEnabled": true,
+                "valueZoomable": true,
+                "zoomable": true
+            },
+            "export": {
+                "enabled": true,
+                "language": "ko"
+            },
+            "valueScrollbar": {
+                "position": "top",
+                "autoGridCount": true,
+                "color": "#000000"
+            }
+        }
+    );
+</script>
+<div id="lotnocolorchartdiv" style="width: 100%; height: {{ chart_height }}px;"></div>
+{% endblock %}
+
+{% block chart_lotno_qty %}
+<script>
+    var color_chart = AmCharts.makeChart("lotnoqtychartdiv", 
+        {
+            "type": "gantt",
+            "marginRight": 70,
+            "language": "ko",
+            "period": "hh",
+            "dataDateFormat": "YYYY-MM-DD-JJ",
+            "valueAxis": {
+                "type": "date"
+            },
+            "brightnessStep": 10,
+            "mouseWheelZoomEnabled": true,
+            "columnWidth": 0.7,
+            "graph": {
+                "fillAlphas": 0.7,
+                "lineAlpha": 0.7,
+                "lineColor": "#000000",
+                "dateFormat": "YYYY년 MM월 DD일 JJ시",
+                "labelText": "[[lotno]] | [[qty]]",
+                "labelPosition": "middle",
+                "labelRotation": 20,
+                "showAllValueLabels": true,            
+                "balloonText": "<b>[[lotno]]</b><br/>색상: [[colorname]]<br/>수량: [[qty]]<br/>시작: [[open]]<br/>종료: [[value]]"
+            },
+            "balloon": {
+                "adjustBorderColor": true,
+                "cornerRadius": 5,
+                "textAlign": "left"
+            },
+            "rotate": true,
+            "categoryField": "category",
+            "segmentsField": "segments",
+            "colorField": "color",
+            "startDateField": "start",
+            "endDateField": "end",            
+            "dataProvider": [                
+                {% for item in chart_data %}
+                {
+                    "category": "{{ item.category }}",
+                    "segments": [
+                        {% for segment in item.segments %}
+                        {
+                            "lotno": "{{ segment.lotno }}",
+                            "color": "{{ segment.color }}",
+                            "colorname": "{{ segment.colorname }}",
+                            "qty": "{{ segment.qty }}",
+                            "start": "{{ segment.start }}",
+                            "end": "{{ segment.end }}"
+                        },
+                        {% endfor %}
+                    ]
+                },
+                {% endfor %}
+            ],
+            "chartCursor": {
+                "valueBalloonsEnabled": false,
+                "cursorAlpha": 0,
+                "valueLineBalloonEnabled": true,
+                "valueLineEnabled": true,
+                "valueZoomable": true,
+                "zoomable": true
+            },
+            "export": {
+                "enabled": true,
+                "language": "ko"
+            },
+            "valueScrollbar": {
+                "position": "top",
+                "autoGridCount": true,
+                "color": "#000000"
+            }
+        }
+    );
+</script>
+<div id="lotnoqtychartdiv" style="width: 100%; height: {{ chart_height }}px;"></div>
+{% endblock %}
+
 {% block chart_lotno_color_qty %}
 <script>
     var color_chart = AmCharts.makeChart("lotnocolorqtychartdiv", 
@@ -115,7 +273,7 @@
                 "lineAlpha": 0.7,
                 "lineColor": "#000000",
                 "dateFormat": "YYYY년 MM월 DD일 JJ시",
-                "labelText": "[[lotno]] / [[colorname]] / [[qty]]",
+                "labelText": "[[lotno]] | [[colorname]] | [[qty]]",
                 "labelPosition": "middle",
                 "labelRotation": 20,
                 "showAllValueLabels": true,            

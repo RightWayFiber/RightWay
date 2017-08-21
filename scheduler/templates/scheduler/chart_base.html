@@ -4,11 +4,21 @@
 <div class="content container">  
     <ul class="nav nav-tabs">
         <li class="active"><a href="#lotno" data-toggle="tab" aria-expanded="true">Lot#</a></li>    
-        <li class=""><a href="#lotno_color_qty" data-toggle="tab" aria-expanded="false">Lot# / Color / Qty</a></li>    
+        <li class=""><a href="#lotno_color" data-toggle="tab" aria-expanded="false">Lot# | Color</a></li>    
+        <li class=""><a href="#lotno_qty" data-toggle="tab" aria-expanded="false">Lot# | Qty</a></li>    
+        <li class=""><a href="#lotno_color_qty" data-toggle="tab" aria-expanded="false">Lot# | Color | Qty</a></li>    
     </ul>
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade active in" id="lotno">
             {% block chart_lotno %}
+            {% endblock %}
+        </div>
+        <div class="tab-pane fade" id="lotno_color">
+            {% block chart_lotno_color %}
+            {% endblock %}
+        </div>
+        <div class="tab-pane fade" id="lotno_qty">
+            {% block chart_lotno_qty %}
             {% endblock %}
         </div>
         <div class="tab-pane fade" id="lotno_color_qty">
