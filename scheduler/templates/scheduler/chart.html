@@ -1,4 +1,4 @@
-{% extends 'scheduler/base.html' %}
+{% extends 'scheduler/chart_base.html' %}
 {% load staticfiles %}
 
 {% block head %}
@@ -9,77 +9,6 @@
 <script src="{% static 'amcharts/plugins/export/lang/ko.js' %}"></script>
 <link rel="stylesheet" href="{% static 'amcharts/plugins/export/export.css' %}" media="all" />
 <script src="{% static 'amcharts/lang/ko.js' %}"></script>
-<script>
-    var chart = AmCharts.makeChart("chartdiv", {
-        "type": "gantt",
-        "marginRight": 70,
-        "language": "ko",
-        "period": "hh",
-        "dataDateFormat": "YYYY-MM-DD-JJ",
-        "valueAxis": {
-            "type": "date"
-        },        
-        "brightnessStep": 10,          
-        "mouseWheelZoomEnabled": true,
-        "columnWidth": 0.7,
-        "graph": {                 
-            "fillAlphas": 1,
-            "lineAlpha": 0.7,
-            "lineColor": "#000000",          
-            "dateFormat": "YYYY년 MM월 DD일 JJ시",
-            "balloonText": "<b>[[lotno]]</b><br/>색상: [[colorname]]<br/>수량: [[qty]]<br/>시작: [[open]]<br/>종료: [[value]]"
-        },
-        "balloon": {
-            "adjustBorderColor": true,           
-            "cornerRadius": 5,
-            "textAlign": "left"
-        },
-        "rotate": true,        
-        "categoryField": "category",
-        "segmentsField": "segments",
-        "colorField": "color",
-        "startDateField": "start",
-        "endDateField": "end",
-        "durationField": "duration",
-        "dataProvider": [
-            {% for item in chart_data %}
-            {
-                "category": "{{ item.category }}",
-                "segments": [
-                    {% for segment in item.segments %}
-                    {
-                        "lotno": "{{ segment.lotno }}",
-                        "color": "{{ segment.color }}",
-                        "colorname": "{{ segment.colorname }}",
-                        "qty": "{{ segment.qty }}",
-                        "start": "{{ segment.start }}",
-                        "end": "{{ segment.end }}"
-                    },                    
-                    {% endfor %}
-                ]
-            },
-            {% endfor %}
-        ],
-        "chartCursor": {
-            "valueBalloonsEnabled": false,
-            "cursorAlpha": 0,
-            "valueLineBalloonEnabled": true,
-            "valueLineEnabled": true,
-            "valueZoomable": true,
-            "zoomable": true
-        },
-        "export": {
-            "enabled": true,
-            "language": "ko"
-        },
-        "valueScrollbar": {
-            "position": "top",
-            "autoGridCount": true,
-            "color": "#000000"
-        }
-    });
-
-</script>
 {% endblock %}
 
 {% block navbar %}
@@ -87,6 +16,235 @@
 <li><a href="/table">Table</a></li>
 {% endblock %}
 
-{% block content %}
-<div id="chartdiv" style="width: 100%; height: {{ chart_height }}px;"></div>
+{% block chart_color %}
+<script>
+    var color_chart = AmCharts.makeChart("colorchartdiv", 
+        {
+            "type": "gantt",
+            "marginRight": 70,
+            "language": "ko",
+            "period": "hh",
+            "dataDateFormat": "YYYY-MM-DD-JJ",
+            "valueAxis": {
+                "type": "date"
+            },
+            "brightnessStep": 10,
+            "mouseWheelZoomEnabled": true,
+            "columnWidth": 0.7,
+            "graph": {
+                "fillAlphas": 0.7,
+                "lineAlpha": 0.7,
+                "lineColor": "#000000",
+                "dateFormat": "YYYY년 MM월 DD일 JJ시",
+                "labelText": "[[lotno]] / [[colorname]] / [[qty]]",
+                "labelPosition": "middle",    
+                "showAllValueLabels": true,            
+                "balloonText": "<b>[[lotno]]</b><br/>색상: [[colorname]]<br/>수량: [[qty]]<br/>시작: [[open]]<br/>종료: [[value]]"
+            },
+            "balloon": {
+                "adjustBorderColor": true,
+                "cornerRadius": 5,
+                "textAlign": "left"
+            },
+            "rotate": true,
+            "categoryField": "category",
+            "segmentsField": "segments",
+            "colorField": "color",
+            "startDateField": "start",
+            "endDateField": "end",
+            "durationField": "duration",
+            "dataProvider": [                
+                {% for item in chart_data %}
+                {
+                    "category": "{{ item.category }}",
+                    "segments": [
+                        {% for segment in item.segments %}
+                        {
+                            "lotno": "{{ segment.lotno }}",
+                            "color": "{{ segment.color }}",
+                            "colorname": "{{ segment.colorname }}",
+                            "qty": "{{ segment.qty }}",
+                            "start": "{{ segment.start }}",
+                            "end": "{{ segment.end }}"
+                        },
+                        {% endfor %}
+                    ]
+                },
+                {% endfor %}
+            ],
+            "chartCursor": {
+                "valueBalloonsEnabled": false,
+                "cursorAlpha": 0,
+                "valueLineBalloonEnabled": true,
+                "valueLineEnabled": true,
+                "valueZoomable": true,
+                "zoomable": true
+            },
+            "export": {
+                "enabled": true,
+                "language": "ko"
+            },
+            "valueScrollbar": {
+                "position": "top",
+                "autoGridCount": true,
+                "color": "#000000"
+            }
+        }
+    );
+</script>
+<div id="colorchartdiv" style="width: 100%; height: {{ chart_height }}px;"></div>
+{% endblock %}
+
+{% block chart_noncolor %}
+<script>
+    var noncolor_chart = AmCharts.makeChart("noncolorchartdiv", 
+        {
+            "type": "gantt",        
+            "marginRight": 70,            
+            "language": "ko",
+            "period": "hh",
+            "dataDateFormat": "YYYY-MM-DD-JJ",
+            "valueAxis": {
+                "type": "date"
+            },
+            "brightnessStep": 10,
+            "mouseWheelZoomEnabled": true,
+            "columnWidth": 0.7,
+            "graph": {
+                "fillAlphas": 0.7,
+                "lineAlpha": 0.7,
+                "lineColor": "#000000",
+                "dateFormat": "YYYY년 MM월 DD일 JJ시",                
+                "labelText": "[[lotno]] / [[colorname]] / [[qty]]",           
+                "labelPosition": "middle",  
+                "showAllValueLabels": true,              
+                "balloonText": "<b>[[lotno]]</b><br/>색상: [[colorname]]<br/>수량: [[qty]]<br/>시작: [[open]]<br/>종료: [[value]]"
+            },
+            "balloon": {
+                "adjustBorderColor": true,
+                "cornerRadius": 5,
+                "textAlign": "left",
+            },
+            "rotate": true,
+            "categoryField": "category",
+            "segmentsField": "segments",                
+            "startDateField": "start",
+            "endDateField": "end",
+            "durationField": "duration",
+            "dataProvider": [
+                {% for item in chart_data %}
+                {                
+                    "category": "{{ item.category }}",
+                    "segments": [
+                        {% for segment in item.segments %}
+                        {
+                            "lotno": "{{ segment.lotno }}",            
+                            "colorname": "{{ segment.colorname }}",
+                            "qty": "{{ segment.qty }}",
+                            "start": "{{ segment.start }}",
+                            "end": "{{ segment.end }}"
+                        },
+                        {% endfor %}
+                    ]
+                },
+                {% endfor %}
+            ],
+            "chartCursor": {
+                "valueBalloonsEnabled": false,
+                "cursorAlpha": 0,
+                "valueLineBalloonEnabled": true,
+                "valueLineEnabled": true,
+                "valueZoomable": true,
+                "zoomable": true
+            },
+            "export": {
+                "enabled": true,
+                "language": "ko"
+            },
+            "valueScrollbar": {
+                "position": "top",
+                "autoGridCount": true,
+                "color": "#000000"
+            }
+        }
+    );
+</script>
+<div id="noncolorchartdiv" style="width: 100%; height: {{ chart_height }}px;"></div>
+{% endblock %}
+
+{% block chart_lotno %}
+<script>
+    var lotno_chart = AmCharts.makeChart("lotnochartdiv", 
+        {
+            "type": "gantt",
+            "marginRight": 70,
+            "language": "ko",
+            "period": "hh",
+            "dataDateFormat": "YYYY-MM-DD-JJ",
+            "valueAxis": {
+                "type": "date"
+            },
+            "brightnessStep": 10,
+            "mouseWheelZoomEnabled": true,
+            "columnWidth": 0.7,
+            "graph": {
+                "fillAlphas": 0.7,
+                "lineAlpha": 0.7,
+                "lineColor": "#000000",
+                "dateFormat": "YYYY년 MM월 DD일 JJ시",
+                "labelText": "[[lotno]]",
+                "labelPosition": "middle",
+                "showAllValueLabels": true,       
+                "balloonText": "<b>[[lotno]]</b><br/>색상: [[colorname]]<br/>수량: [[qty]]<br/>시작: [[open]]<br/>종료: [[value]]"
+            },
+            "balloon": {
+                "adjustBorderColor": true,
+                "cornerRadius": 5,
+                "textAlign": "left"
+            },
+            "rotate": true,
+            "categoryField": "category",
+            "segmentsField": "segments",
+            "startDateField": "start",
+            "endDateField": "end",
+            "durationField": "duration",
+            "dataProvider": [                
+                {% for item in chart_data %}
+                {
+                    "category": "{{ item.category }}",
+                    "segments": [
+                        {% for segment in item.segments %}
+                        {
+                            "lotno": "{{ segment.lotno }}",
+                            "colorname": "{{ segment.colorname }}",
+                            "qty": "{{ segment.qty }}",
+                            "start": "{{ segment.start }}",
+                            "end": "{{ segment.end }}"
+                        },
+                        {% endfor %}
+                    ]
+                },
+                {% endfor %}
+            ],
+            "chartCursor": {
+                "valueBalloonsEnabled": false,
+                "cursorAlpha": 0,
+                "valueLineBalloonEnabled": true,
+                "valueLineEnabled": true,
+                "valueZoomable": true,
+                "zoomable": true
+            },
+            "export": {
+                "enabled": true,
+                "language": "ko"
+            },
+            "valueScrollbar": {
+                "position": "top",
+                "autoGridCount": true,
+                "color": "#000000"
+            }
+        }
+    );
+</script>
+<div id="lotnochartdiv" style="width: 100%; height: {{ chart_height }}px;"></div>
 {% endblock %}
