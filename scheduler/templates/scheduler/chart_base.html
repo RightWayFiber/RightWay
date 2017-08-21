@@ -2,21 +2,16 @@
 
 {% block content %}
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#color" data-toggle="tab" aria-expanded="true">Color</a></li>
-    <li class=""><a href="#noncolor" data-toggle="tab" aria-expanded="false">Noncolor</a></li>
-    <li class=""><a href="#lotno" data-toggle="tab" aria-expanded="false">Lot#</a></li>    
+    <li class="active"><a href="#lotno" data-toggle="tab" aria-expanded="true">Lot#</a></li>    
+    <li class=""><a href="#lotno_color_qty" data-toggle="tab" aria-expanded="false">Lot# / Color / Qty</a></li>    
 </ul>
 <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade active in" id="color">
-        {% block chart_color %}
+    <div class="tab-pane fade active in" id="lotno">
+        {% block chart_lotno %}
         {% endblock %}
     </div>
-    <div class="tab-pane fade" id="noncolor">
-        {% block chart_noncolor %}
-        {% endblock %}
-    </div>    
-    <div class="tab-pane fade" id="lotno">
-        {% block chart_lotno %}
+    <div class="tab-pane fade" id="lotno_color_qty">
+        {% block chart_lotno_color_qty %}
         {% endblock %}
     </div>
 </div>
